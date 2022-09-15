@@ -1,7 +1,6 @@
 import { galleryItems } from './gallery-items.js';
 // Change code below this line
 const galleryContainer = document.querySelector('.gallery');
-
 const galleryMarkup = createGalleryMarkup(galleryItems);
 
 galleryContainer.insertAdjacentHTML('beforeend', galleryMarkup);
@@ -24,15 +23,28 @@ function createGalleryMarkup(galleryArray) {
     .join('');
 }
 galleryContainer.addEventListener('click', onImgClick);
+
 function onImgClick(evt) {
   evt.preventDefault();
   if (!evt.target.classList.contains('gallery__image')) {
     return;
   }
 
+  modalOpenClose(evt);
+}
+
+function modalOpenClose(evt) {
   const instance = basicLightbox.create(`
     <img src="${evt.target.dataset.source}" >
 `);
 
   instance.show();
+
+  window.addEventListener('keydown', onEscKeyPress);
+
+  function onEscKeyPress(evt) {
+    if (evt.code === 'Escape') {
+      instance.close(window.removeEventListener('keydown', onEscKeyPress));
+    }
+  }
 }
