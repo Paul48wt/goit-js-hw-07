@@ -17,17 +17,9 @@ function createGalleryMarkup(galleryArray) {
     )
     .join('');
 }
-galleryContainer.addEventListener('click', onImgClick);
 
-function onImgClick(evt) {
-  evt.preventDefault();
-  if (!evt.target.classList.contains('gallery__image')) {
-    return;
-  }
-
-  const lightbox = new SimpleLightbox('.gallery a', {
-    captions: true,
-    captionPosition: 'bottom',
-    captionDelay: 250,
-  });
-}
+const lightbox = new SimpleLightbox('.gallery a', {
+  captions: true,
+  captionPosition: 'bottom',
+  captionDelay: 250,
+});
